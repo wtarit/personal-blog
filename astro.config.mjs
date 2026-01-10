@@ -5,9 +5,12 @@ import sitemap from "@astrojs/sitemap";
 import { defineConfig } from "astro/config";
 import mermaid from "astro-mermaid";
 
+import cloudflare from "@astrojs/cloudflare";
+
 // https://astro.build/config
 export default defineConfig({
   site: "https://example.com",
+
   integrations: [
     mermaid({
       theme: "forest",
@@ -16,4 +19,6 @@ export default defineConfig({
     mdx(),
     sitemap(),
   ],
+
+  adapter: cloudflare(),
 });

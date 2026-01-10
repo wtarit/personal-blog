@@ -9,6 +9,7 @@
     "astro": "astro"
   },
   "dependencies": {
+    "@astrojs/cloudflare": "^12.6.12",
     "@astrojs/mdx": "^4.3.13",
     "@astrojs/rss": "^4.0.14",
     "@astrojs/sitemap": "^3.6.1",
@@ -16,5 +17,8 @@
     "astro-mermaid": "^1.2.0",
     "mermaid": "^11.12.2",
     "sharp": "^0.34.3"
+  },
+  "devDependencies": {
+    "wrangler": "^4.58.0"
   }
 }
