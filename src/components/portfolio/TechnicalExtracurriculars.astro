@@ -1,0 +1,51 @@
+---
+interface Extracurricular {
+  title: string;
+  organization: string;
+  duration: string;
+  descriptions: string[];
+}
+
+const technicalExtracurriculars: Extracurricular[] = [
+  {
+    title: "Software Developer",
+    organization: "UBC Uncrewed Aircraft Systems Engineering Design Team",
+    duration: "September 2023 - Present",
+    descriptions: [
+      "Contributed as part of a 60+ member engineering team to develop autonomous drones, achieving 2nd place at the Aerial Evolution Association of Canada 2025 competition",
+      "Migrated 15+ endpoints in MissionPlanner-Scripts, an API that connects backend system and ArduPilot, to a cross-platform architecture using Pymavlink, eliminating reliance on Windows-only MissionPlanner client scripts",
+      "Created OpenAPI Specifications and Postman collections to facilitate team collaboration and API integration",
+      "Built a target-detection pipeline using a fine-tuned YOLOv8 model with tiled inference",
+      "Developed a dataset generation tool with OpenCV and imgaug, reducing manual data labeling requirements",
+    ],
+  },
+];
+---
+
+<div class="p-6">
+  <h1 class="scroll-m-20 text-4xl! font-bold tracking-tight lg:text-4xl! py-6 text-center">
+    Technical Extracurriculars
+  </h1>
+  <div class="space-y-6">
+    {technicalExtracurriculars.map((extracurricular) => (
+      <div class="rounded-lg border bg-white shadow-sm">
+        <div class="p-6 pb-4">
+          <h3 class="font-semibold leading-none tracking-tight text-2xl!">
+            {extracurricular.title}
+          </h3>
+          <div class="flex justify-between flex-col md:flex-row text-sm text-gray-600 mt-2">
+            <div>{extracurricular.organization}</div>
+            <div>{extracurricular.duration}</div>
+          </div>
+        </div>
+        <div class="px-6 pb-6">
+          <ul class="list-disc px-6 space-y-2">
+            {extracurricular.descriptions.map((des) => (
+              <li>{des}</li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    ))}
+  </div>
+</div>

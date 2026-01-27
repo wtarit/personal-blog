@@ -1,0 +1,53 @@
+---
+interface Competition {
+  image: string;
+  title: string;
+  date: string;
+  description: string;
+}
+
+const competitions: Competition[] = [
+  {
+    image: "/images/NSCC2024_Translink.jpg",
+    title: "National Strategy Consulting Competition",
+    date: "December 2024",
+    description:
+      "Analyzed TransLink's financial challenges at NSCC 2024 and proposed a three-tiered strategy, including advertising optimization, event-specific transportation services, and a long-term integrated Super App",
+  },
+  {
+    image: "/images/ADSE2022.jpg",
+    title: "ASEAN Data Science Explorers",
+    date: "August 2022",
+    description:
+      "Developed a data analytics storyboard, proposing 'Caregiver Hub,' an app connecting the elderly with trusted caregivers, social groups, and activity recommendations to support aging societies",
+  },
+];
+---
+
+<div class="p-6">
+  <h1 class="scroll-m-20 text-4xl! font-bold tracking-tight lg:text-4xl! py-6 text-center">
+    Competitions
+  </h1>
+  <div class="flex flex-row flex-wrap justify-center gap-4">
+    {competitions.map((competition) => (
+      <div class="w-[430px] min-w-60 rounded-lg border bg-white shadow-sm overflow-hidden">
+        <img
+          src={competition.image}
+          alt={competition.title}
+          class="aspect-[16/9] object-cover w-full"
+        />
+        <div class="p-6 pb-4">
+          <h3 class="font-semibold leading-none tracking-tight text-2xl!">
+            {competition.title}
+          </h3>
+          <p class="text-sm text-gray-600 mt-2">
+            {competition.date}
+          </p>
+        </div>
+        <div class="px-6 pb-6">
+          <p class="text-sm text-gray-700">{competition.description}</p>
+        </div>
+      </div>
+    ))}
+  </div>
+</div>
