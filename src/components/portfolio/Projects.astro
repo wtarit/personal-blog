@@ -1,0 +1,125 @@
+---
+import { Icon } from 'astro-icon/components'
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+
+// Import all images
+const images = import.meta.glob<{ default: ImageMetadata }>('../../assets/images/*.{png,jpg,jpeg,webp}', { eager: true });
+
+interface Project {
+  image: string;
+  title: string;
+  description: string;
+  github?: string;
+  devpost?: string;
+}
+
+const projects: Project[] = [
+  {
+    image: "SAM_Cover.png",
+    title: "SAM - Sarcasm Authentication Model",
+    description:
+      "An app that helps individuals with Autism Spectrum Disorder (ASD) recognize sarcasm in conversations—making social interactions smoother and reducing misunderstandings",
+    devpost: "https://devpost.com/software/sam-sarcasm-authentication-model",
+  },
+  {
+    image: "WasteWizard_Cover.png",
+    title: "WasteWizard",
+    description:
+      "A digital solution to biomedical waste management in hospitals",
+    github: "https://github.com/wtarit/nwHack2024",
+    devpost: "https://devpost.com/software/wastewizard-oyiqta",
+  },
+  {
+    image: "RingNotify_Cover.png",
+    title: "Ring Notify",
+    description:
+      "Mobile application for notifying urgent events through call in screen",
+    github: "https://github.com/wtarit/ring-notify",
+  },
+  {
+    image: "TH-EN-MT_Cover.png",
+    title: "TH-EN Machine Translation",
+    description:
+      "Finetuning No Language Left Behind model for Thai to English machine translation using SCB-1M and OPUS dataset",
+    github: "https://github.com/wtarit/th-en-machine-translation",
+  },
+  {
+    image: "Domacod_Cover.png",
+    title: "Domacod",
+    description:
+      "Mobile application to index images based on the content of the image by using object detection and optical character recognition",
+    github: "https://github.com/wtarit/domacod",
+  },
+  {
+    image: "2ndkibo.webp",
+    title: "Kibo Robot Programming Challenge",
+    description:
+      "Android application for controlling NASA's free-flying robot (Astrobee) in the Japanese Experimental Module 'Kibo' of the International Space Station (ISS)",
+    github: "https://github.com/wtarit/2nd-Kibo-RPC_Indentation-Error",
+  },
+  {
+    image: "Nuclear_Robot_Cover.webp",
+    title: "Logistics Robot",
+    description:
+      "Logistics robot that travels on a simulated moon surface, detects radioactive substances and moves them into storage boxes",
+  },
+  {
+    image: "Roboinnovator_Cover.webp",
+    title: "RoboInnovator Challenge",
+    description:
+      "Logistics robot that drives on the road lane and transports objects to the correct destination by reading the QR code",
+  },
+];
+---
+
+<div class="p-6">
+  <h1 class="scroll-m-20 text-4xl! font-bold tracking-tight lg:text-4xl! py-6 text-center">
+    Projects
+  </h1>
+  <div class="flex flex-row flex-wrap justify-center gap-4">
+    {projects.map((project) => (
+      <div class="w-[430px] min-w-60 rounded-lg border bg-white shadow-sm overflow-hidden flex flex-col">
+        <Image
+          src={images[`../../assets/images/${project.image}`].default}
+          alt={project.title}
+          class="aspect-[16/9] object-cover w-full"
+        />
+        <div class="p-6 pb-4">
+          <h3 class="font-semibold leading-none tracking-tight text-2xl!">
+            {project.title}
+          </h3>
+        </div>
+        <div class="px-6 pb-6 grow">
+          <p class="text-sm text-gray-700">{project.description}</p>
+        </div>
+        {(project.github || project.devpost) && (
+          <div class="flex items-center px-6 pb-6 gap-2 mt-auto">
+            {project.github && (
+              <a
+                href={project.github}
+                target="_blank"
+                rel="noreferrer"
+                class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 hover:bg-gray-100 hover:text-gray-900 h-9 px-3"
+                aria-label="GitHub repository"
+              >
+                <Icon name="simple-icons:github" class="w-5 h-5 text-black" />
+              </a>
+            )}
+            {project.devpost && (
+              <a
+                href={project.devpost}
+                target="_blank"
+                rel="noreferrer"
+                class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 hover:bg-gray-100 hover:text-gray-900 h-9 px-3"
+                aria-label="Devpost submission"
+              >
+                <Icon name="simple-icons:devpost" class="w-5 h-5 text-black" />
+              </a>
+            )}
+          </div>
+        )}
+      </div>
+    ))}
+  </div>
+</div>

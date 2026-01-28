@@ -1,0 +1,73 @@
+---
+interface WorkExperience {
+  title: string;
+  company: string;
+  duration: string;
+  descriptions: string[];
+}
+
+const workExperiences: WorkExperience[] = [
+  {
+    title: "CPSC 310 Undergraduate Teaching Assistant",
+    company: "University of British Columbia - Vancouver, BC",
+    duration: "September 2025 - April 2026",
+    descriptions: [
+      "Worked as part of a teaching team supporting 461 students in the Introduction to Software Engineering course",
+      "Facilitated labs and office hours to review group project progress and help students debug TypeScript projects",
+      "Graded written assignments and addressed spec-related and technical questions on Piazza",
+    ],
+  },
+  {
+    title: "Software Engineer Co-op",
+    company: "Agoda Services (subsidiary of Booking Holdings Inc.) - Bangkok, Thailand",
+    duration: "May 2025 - August 2025",
+    descriptions: [
+      "Improved Cashback processing logic by querying additional data from the booking team's GraphQL API and adding validation logic, automating cases that once needed manual review",
+      "Resolved 3 production bugs by updating C# API query logic and adding retry logic with fallback flags to conform with booking team's API spec for older bookings, improving Cashback page user experience",
+      "Restored and stabilized previously flaky Cashback integration tests by integrating MockAPI endpoints",
+      "Addressed security vulnerabilities by upgrading dependencies, including Jest and internal Playwright E2E test wrappers, and fixing CI pipelines to ensure tests run on every pull request",
+      "Developed a load testing suite using Grafana k6 with randomized input data, simulating up to 500 req/sec to proactively validate system performance before new feature rollouts",
+    ],
+  },
+  {
+    title: "Software Developer Intern",
+    company: "Applicad Public Company Limited - Bangkok, Thailand",
+    duration: "June 2024 - August 2024",
+    descriptions: [
+      "Analyzed the sales team's needs for a customer identification solution, defining essential functionalities and designing user flows in collaboration with a UX/UI designer to develop a Figma prototype",
+      "Developed a real-time facial recognition web application using Next.js, featuring a user interface for customer identification with 95% accuracy via webcam, along with an admin page for managing customer data",
+      "Built a backend service in Python with FastAPI for face vector comparison using ChromaDB, integrated with a PostgreSQL database for storing user data, and linked it to the existing internal customer database",
+      "Implemented role-based access control using NextAuth with JWT sessions and email OTP login, with token verification handled via Next.js middleware",
+      "Deployed the application and databases to an on-premises Ubuntu server using Docker and Docker Compose",
+    ],
+  },
+];
+---
+
+<div class="p-6">
+  <h1 class="scroll-m-20 text-4xl! font-bold tracking-tight lg:text-4xl! py-6 text-center">
+    Work Experience
+  </h1>
+  <div class="space-y-6">
+    {workExperiences.map((workExperience) => (
+      <div class="rounded-lg border bg-white shadow-sm">
+        <div class="p-6 pb-4">
+          <h3 class="font-semibold leading-none tracking-tight text-2xl!">
+            {workExperience.title}
+          </h3>
+          <div class="flex justify-between flex-col md:flex-row text-sm text-gray-600 mt-2">
+            <div>{workExperience.company}</div>
+            <div>{workExperience.duration}</div>
+          </div>
+        </div>
+        <div class="px-6 pb-6">
+          <ul class="list-disc px-6 space-y-2">
+            {workExperience.descriptions.map((des) => (
+              <li>{des}</li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    ))}
+  </div>
+</div>
