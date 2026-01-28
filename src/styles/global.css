@@ -45,7 +45,7 @@ body {
   word-wrap: break-word;
   overflow-wrap: break-word;
   color: rgb(var(--gray-dark));
-  font-size: 20px;
+  font-size: 18px;
   line-height: 1.7;
 }
 main {
@@ -126,7 +126,6 @@ blockquote {
   border-left: 4px solid var(--accent);
   padding: 0 0 0 20px;
   margin: 0;
-  font-size: 1.333em;
 }
 hr {
   border: none;

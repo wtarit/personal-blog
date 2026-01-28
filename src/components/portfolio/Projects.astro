@@ -74,7 +74,7 @@ const projects: Project[] = [
   </h1>
   <div class="flex flex-row flex-wrap justify-center gap-4">
     {projects.map((project) => (
-      <div class="w-[430px] min-w-60 rounded-lg border bg-white shadow-sm overflow-hidden">
+      <div class="w-[430px] min-w-60 rounded-lg border bg-white shadow-sm overflow-hidden flex flex-col">
         <img
           src={project.image}
           alt={project.title}
@@ -85,11 +85,11 @@ const projects: Project[] = [
             {project.title}
           </h3>
         </div>
-        <div class="px-6 pb-6">
+        <div class="px-6 pb-6 grow">
           <p class="text-sm text-gray-700">{project.description}</p>
         </div>
         {(project.github || project.devpost) && (
-          <div class="flex items-center px-6 pb-6 gap-2">
+          <div class="flex items-center px-6 pb-6 gap-2 mt-auto">
             {project.github && (
               <a
                 href={project.github}
@@ -98,7 +98,7 @@ const projects: Project[] = [
                 class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 hover:bg-gray-100 hover:text-gray-900 h-9 px-3"
                 aria-label="GitHub repository"
               >
-                <Icon name="simple-icons:github" class="w-5 h-5" />
+                <Icon name="simple-icons:github" class="w-5 h-5 text-black" />
               </a>
             )}
             {project.devpost && (
@@ -109,7 +109,7 @@ const projects: Project[] = [
                 class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 hover:bg-gray-100 hover:text-gray-900 h-9 px-3"
                 aria-label="Devpost submission"
               >
-                <Icon name="simple-icons:devpost" class="w-5 h-5" />
+                <Icon name="simple-icons:devpost" class="w-5 h-5 text-black" />
               </a>
             )}
           </div>
