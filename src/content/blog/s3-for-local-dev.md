@@ -6,47 +6,50 @@ heroImage: "../../assets/blog/Garage-VS-Seaweed-cover.png"
 draft: false
 ---
 
-Note: This is not a through comparison of Garage and SeeweedFS, its more like a note on what I found trying out both.
+Note: This is not a thorough comparison of Garage and SeaweedFS. It's more of a note on what I found while trying out both.
 
-Since minIO go fully closed source.
+Since MinIO effectively abandoned its open-source edition, I wanted a tool that I can develop against locally but also potentially take to production if I self-host.
 
-I want some tool that I can dev on but also potentially go to prod with if I selfhost.
+## Garage
 
-Initially I started with Garage
+I initially started with Garage, but I need anonymous access and Garage doesn't support that.
 
-I need annonymous access but garage doesn't provide that.
+Garage does have a web endpoint, but that doesn't suit me because the URL format is different. I want the exact same API as S3 since I plan to use AWS S3 or Cloudflare R2 in production.
 
-Garage have web but that doesn't suite me because the URL format is different and I want exact same API as S3 since I plan to use AWS S3 or Cloudflare R2 in production.
+This issue has been mentioned [since 2022](https://git.deuxfleurs.fr/Deuxfleurs/garage/issues/263) and there's a [PR addressing it](https://git.deuxfleurs.fr/Deuxfleurs/garage/pulls/1306), but there's no timeline for when it will be implemented. So I needed to find an alternative.
 
-This issue have been mentioned [since 2022](https://git.deuxfleurs.fr/Deuxfleurs/garage/issues/263) and there's a [PR addressing this issue](https://git.deuxfleurs.fr/Deuxfleurs/garage/pulls/1306) but no timeline when it gonna be implemented. So I need to find alternative.
+## SeaweedFS
 
-One I stumbled apon is SeaweedFS, the project started since 2014 and is actively maintained (from looking at its GitHub) it have an enterprise offering which might mean that they can pull the same move similar to what minIO did so that might be a con but it probably mean it will get frequent bug fix (I hope).
+One I stumbled upon is SeaweedFS. The project has been around since the early 2010s and is actively maintained (from looking at its GitHub). It has an enterprise offering, which might mean they could pull the same move MinIO did, that's a potential con. On the other hand, it probably means the project will get frequent bug fixes (I hope).
 
-Ease of setup
-Goal: Be able to git clone and just run the code. I want to have access key predefined so I don't have to change my .env file if I need to delete the docker compose stack.
-Garage:
-Quite complicated, most of the config is done via API or shell command, no easy way to pass in environment variable and let it set itself up. The approach I use is to have a shell script which execute command inside the docker container that I manually run to setup bucket and crete the access key by importing the pregenerated key.
+# Ease of Setup
 
-From SeaweedFS [README](https://github.com/seaweedfs/seaweedfs?tab=readme-ov-file#quick-start-for-s3-api-on-docker) the docker quickstart point to running the command `server -s3` which doesn't seems to auto configure key (and I'm still not sure how to use it). I think for quick local dev setup `weed mini` is what you'll want to use.
+**Goal:** Be able to git clone and just run the code. I want access keys predefined so I don't have to change my .env file every time I delete the Docker Compose stack.
 
-By using weed mini, I can directly pre specify AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY using env var
+**Garage:**
+Quite complicated. Most of the configuration is done via API or shell commands, with no easy way to pass in environment variables and let it set itself up. The approach I used is a shell script that executes commands inside the Docker container to set up the bucket and create the access key by importing a pregenerated key.
 
-It still doesn't have option to auto create bucket from env var so I still need a script for running aws cli for creating the bucket
+**SeaweedFS:**
+From the SeaweedFS [README](https://github.com/seaweedfs/seaweedfs?tab=readme-ov-file#quick-start-for-s3-api-on-docker), the Docker quickstart points to running `server -s3`, which doesn't seem to auto-configure keys (and I'm still not sure how to use it). For a quick local dev setup, I think `weed mini` is what you'll want to use.
 
-For connecting to it refer to this [documentation](https://github.com/seaweedfs/seaweedfs/wiki/AWS-CLI-with-SeaweedFS)
+With `weed mini`, I can directly specify `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY` using environment variables.
 
-# Resource Comsumption
+It still doesn't have an option to auto-create buckets from an environment variable, so I still need a script that runs the AWS CLI to create the bucket.
+
+For connecting to it, refer to this [documentation](https://github.com/seaweedfs/seaweedfs/wiki/AWS-CLI-with-SeaweedFS).
+
+# Resource Consumption
 
 ## Image Size
 
-What shown on Docker Desktop
+As shown on Docker Desktop:
 
 dxflrs/garage v2.2.0 - 64.41 MB  
 chrislusf/seaweedfs latest (v4.17) - 312.08 MB
 
 ## Memory Usage
 
-Not a scientific mesure, I just launched container with 2 bucket and a few files in it and run `docker stats`
+Not a scientific measurement — I just launched each container with 2 buckets and a few files, then ran `docker stats`.
 
 Garage - 23 MiB  
 SeaweedFS - 137 MiB
