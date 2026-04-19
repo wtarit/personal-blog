@@ -1,0 +1,44 @@
+---
+title: "My experience joining MLH Production Engineering Hackathon"
+description: "My experience joining MLH Production Engineering Hackathon in 2026"
+pubDate: "Apr 19 2026"
+heroImage: "../../assets/blog/pe-hack-cover.png"
+draft: true
+---
+
+import { YouTube } from "astro-embed";
+
+When I first saw the newsletter announcement from MLH about this hackathon I was like hmm.. this is an interesting concept. I forwarded the link to a few friend and register thinking since it's online we can probably just dip if we don't like it.
+
+A few day before the event, we get the Quest Log which is a list of stuff that we need to do in 3 main categories, Reliability Engineering, Scalability Engineering, Incident Response and a template repo which is just a blank flask app.
+
+From reading the Quest Log, we came up with a game plan, one of our team member just bought 3 Dell Optiplex for his homelab so we know that selfhosted Kubernetes cluster will need to be the center piece of our project. Running stuff on bare metal which we think it will impress the judge on the video. Since we decide to run our own hardware we mostly pick opensource tool that we can selfhost our self. We settled on Grafana, Prometeus and Alert Manager for our observability stack. For caching we go with Valkey as it's fully opensource, for database, we didn't get to choose as the provided PostgreSQL in the template (but I think that the right choice anyway). For our CI/CD pipeline, we used still used GitHub actions, even though it's a hosted service, we can use it with self-hosted runner which let us run deployment in our local k8s cluster.
+
+For what we need to build, we need to build a URL shortener, the organizating team provided list of endpoints that need to run against their automated test suite, which I think this is the first hackathon I see that have an automated test suite. For this part, I just feed all the spec to OPUS 4.6 and it came out with a working implementation.
+
+I mainly worked on setting up our k8s cluster, starting from installing Ubuntu on our 3 machines and setup [K3s](https://k3s.io/) which is a k8s distro that we choose (more like what Claude recommended to us). We also setted up TailScale to let us all connect to the cluster from outside of our friend dorm since we have 4 members but at that time TailScale personal plan limit to 3 users so we need to upgraded to personal plus plan. What's funny is a few day after the hackathon, TailScale [retired](https://tailscale.com/blog/pricing-v4) the personal plus plan and increase to 6 users in free plan. But I think our friend is happy to support TailScale anyway.
+
+The challenge I faced is when load testing, the load test that's seems to be running fine on the laptop somehow causing error in k8s cluster. Initailly, I thought it's a setup issue so I tried increasing the amount of resource given to the pods which I think it shouldn't be an issue considering it work fine on our laptop with a dev server with one worker handling the request and we have multiple gunicorn worker handling requests in our production container. But we have some headroom so we just increased the limit anyway, that didn't solve the problem. My second thought is networking problem, maybe there's some glich in the network and it cause error in case that worker running on one node query db on another node. Which I also don't think that's an issue considering I know that I regulary connect to PostgreSQL running on the cloud with a much worse internet we have compare to what we connect our cluster together locally and it work fine. So to isolate that, I pin reduce to one pod for every service and pin to one node, still didn't solve the problem.
+
+Before that, we're just testing with 50 simulated user. I'm out of idea, so I think we might just need to submit the load test result running the code in our laptop. Which not gonna lie, might provide better performance than our k8s cluster. (I'm running AMD Ryzen 9 5900HX with 32GB ram while each Dell Optiplex is a Intel Core i5-9500T with 8GB of ram) So I just starting cranking up the number of simulated user and see what happen. At some point, I also starting getting the same error but what I noticed is, it usually start happening at the start of our test, when the number of user starting to ramping up. Looking at the application log, I saw `psycopg2.OperationalError: lost synchronization with server`. Consulting with our best engineer Claude, we found the problem came from where I never expected to be, our code itself. The template code provided create the connection to DB lazily, when a storm of request hit, all requests tried to open connections at once causing errors. I fixed this issue by implementing DB connection pooling and pre-fill the connection on app startup to make it ready to handle request.
+
+Technically, I can just probably make the load test ramp up the number of request per second slowly and it would work but I think by implementing this, our app is ready to handle all the load.
+
+I deployed the new code to our k8s cluster and it work flawlessly, turn out both our resource limit and networking was never been a bottleneck.
+
+Our team won 2nd place, which I'm very proud of since this is our first time touching k8s and we're doing it bare metal. This is my second hackathon that I barely wrote any code as it all handled by Claude Code which will be very interesting on how the future of Software Engineering will look like especially for people in early career like me.
+
+In the end, I really liked this hackathon, I think its a refreshing take on hackathon where we focus on engineering and not so much on "business idea" and it let me try out new tools like k8s and Grafana, something I never imagine touching in other hackathon.
+
+Finally, I have to shout out to the organizing team for making this possible and being very active in answering our questions on Discord and the Q&A forum. Minor complain, I think the instruction around what we need to build and to make it work with the automated test could be clearer as I see on the Q&A that a few of us were questions what part of the template we could change so it still gonna run in the test enviroments. Can't wait to see similar type of hackaton in the future.
+
+Checkout our presentaion video.
+
+<YouTube
+  id="https://www.youtube.com/watch?v=E7s84dX55J8"
+  title="PipeLie MLH Production Engineering Hackathon 2026
+"
+/>
+
+[Devpost](https://devpost.com/software/pipe-lie)  
+[GitHub Repo](https://github.com/PipeLieDev/pe-hackathon)
