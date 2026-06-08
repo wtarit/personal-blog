@@ -10,7 +10,11 @@ draft: false
 
 หลังจากกินเสร็จไป [Lakeland Flowers, Abbotsford Tulip Festival](https://maps.app.goo.gl/Pj7YxAnACNBdSjbQA) ต่อ ไปดู Tulip ก็ดอกไม้สวย แต่วิวรอบ ๆ อาจจะไม่ค่อยดีเท่าไร ถ่ายรูปแล้วติดเสาไฟฟ้า (เห็นเพื่อนไปตรง Harrison Hot Springs ดูใน IG น่าจะสวยกว่าแต่ขับรถไกลเลยมาอันนี้) ก็มี Tulip แล้วก็มี Prop ให้ถ่ายรูป
 
+![Abbotsford Tulip Festival อันนี้มุมที่ไม่ติดเสาไฟ](../../../assets/travelblog/abbotsford-fortlangley-steveson-whiterock/tulip.webp)
+
 เสร็จแล้วไป [Fort Langley](https://maps.app.goo.gl/Kt4Wzi9wutFLMbmS9) ต่อ หาข้าวกินตรงนี้ กินร้าน [Wabi Sabi Sushi](https://maps.app.goo.gl/pL9iocyXKW79NQDH8) อันนี้ไม่ได้มีอะไรพิเศษแค่เพื่อนอยากกินอาหารญี่ปุ่น โซนนี้เป็นเมืองเก่าจริง มีร้านขายของเก่า, ของฝากเยอะ
+
+![Abbotsford Tulip Festival อันนี้มุมที่ไม่ติดเสาไฟ](../../../assets/travelblog/abbotsford-fortlangley-steveson-whiterock/tulip.webp)
 
 แล้วก็ไปต่อที่ [Fort Langley National Historic Site of Canada](https://maps.app.goo.gl/jLSkfRurUKuJ4GqJ8) อันนี้มีค่าเข้า $10 รีวิวใน Google Maps ดีแต่ไปแล้วไม่ค่อยอิน คิดว่าถ้าเป็นคน Canadian หรืออินกับประวัติศาสตร์ Canada อาจจะอินกว่านี้
 
