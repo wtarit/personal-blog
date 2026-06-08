@@ -1,0 +1,243 @@
+---
+import { Image } from "astro:assets";
+import type { ImageMetadata } from "astro";
+
+interface GalleryImage {
+  src: ImageMetadata;
+  alt: string;
+}
+
+interface Props {
+  images: GalleryImage[];
+  caption?: string;
+  sizes?: string;
+}
+
+const {
+  images,
+  caption,
+  sizes = "(min-width: 720px) 720px, 100vw",
+} = Astro.props;
+---
+
+<figure class="image-gallery" data-image-gallery>
+  <div class="image-gallery__frame">
+    <div
+      class="image-gallery__viewport"
+      data-gallery-viewport
+      tabindex="0"
+      aria-label="Image gallery"
+    >
+      {
+        images.map((image) => (
+          <div class="image-gallery__slide" data-gallery-slide>
+            <Image
+              src={image.src}
+              alt={image.alt}
+              sizes={sizes}
+              loading="lazy"
+              decoding="async"
+            />
+          </div>
+        ))
+      }
+    </div>
+
+    {
+      images.length > 1 && (
+        <div class="image-gallery__controls" data-gallery-controls>
+          <button
+            class="image-gallery__previous"
+            type="button"
+            data-gallery-previous
+            aria-label="Previous image"
+          >
+            &larr;
+          </button>
+          <button
+            class="image-gallery__next"
+            type="button"
+            data-gallery-next
+            aria-label="Next image"
+          >
+            &rarr;
+          </button>
+        </div>
+      )
+    }
+  </div>
+
+  {
+    images.length > 1 && (
+      <div class="image-gallery__status" data-gallery-status aria-live="polite">
+        1 / {images.length}
+      </div>
+    )
+  }
+
+  {caption && <figcaption>{caption}</figcaption>}
+</figure>
+
+<script>
+  document.querySelectorAll<HTMLElement>("[data-image-gallery]").forEach((gallery) => {
+    if (gallery.dataset.enhanced === "true") return;
+
+    const viewport = gallery.querySelector<HTMLElement>("[data-gallery-viewport]");
+    const slides = Array.from(
+      gallery.querySelectorAll<HTMLElement>("[data-gallery-slide]"),
+    );
+    const previous = gallery.querySelector<HTMLButtonElement>("[data-gallery-previous]");
+    const next = gallery.querySelector<HTMLButtonElement>("[data-gallery-next]");
+    const status = gallery.querySelector<HTMLElement>("[data-gallery-status]");
+
+    if (!viewport || slides.length < 2 || !previous || !next || !status) return;
+
+    gallery.dataset.enhanced = "true";
+
+    const currentIndex = () => {
+      const viewportCenter = viewport.scrollLeft + viewport.clientWidth / 2;
+      return slides.reduce((closestIndex, slide, index) => {
+        const slideCenter = slide.offsetLeft + slide.clientWidth / 2;
+        const closestCenter =
+          slides[closestIndex].offsetLeft + slides[closestIndex].clientWidth / 2;
+
+        return Math.abs(slideCenter - viewportCenter) <
+          Math.abs(closestCenter - viewportCenter)
+          ? index
+          : closestIndex;
+      }, 0);
+    };
+
+    const updateControls = () => {
+      const index = currentIndex();
+      status.textContent = `${index + 1} / ${slides.length}`;
+      previous.disabled = index === 0;
+      next.disabled = index === slides.length - 1;
+    };
+
+    const showImage = (index: number) => {
+      slides[index]?.scrollIntoView({
+        behavior: "smooth",
+        block: "nearest",
+        inline: "start",
+      });
+    };
+
+    previous.addEventListener("click", () => showImage(currentIndex() - 1));
+    next.addEventListener("click", () => showImage(currentIndex() + 1));
+    viewport.addEventListener("scrollend", updateControls);
+    viewport.addEventListener("scroll", updateControls, { passive: true });
+    updateControls();
+  });
+</script>
+
+<style>
+  .image-gallery {
+    margin: 2rem 0;
+  }
+
+  .image-gallery__frame {
+    position: relative;
+  }
+
+  .image-gallery__viewport {
+    display: flex;
+    overflow-x: auto;
+    border-radius: 8px;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+  }
+
+  .image-gallery__viewport::-webkit-scrollbar {
+    display: none;
+  }
+
+  .image-gallery__viewport:focus-visible {
+    outline: 3px solid var(--accent);
+    outline-offset: 3px;
+  }
+
+  .image-gallery__slide {
+    display: grid;
+    flex: 0 0 100%;
+    place-items: center;
+    min-width: 0;
+    scroll-snap-align: start;
+  }
+
+  .image-gallery__slide :global(img) {
+    display: block;
+    width: auto;
+    max-height: min(70vh, 720px);
+    margin: 0 auto;
+  }
+
+  .image-gallery__controls {
+    display: none;
+  }
+
+  .image-gallery[data-enhanced="true"] .image-gallery__controls {
+    display: block;
+  }
+
+  button {
+    position: absolute;
+    top: 50%;
+    display: grid;
+    width: 2.75rem;
+    height: 2.75rem;
+    padding: 0;
+    transform: translateY(-50%);
+    place-items: center;
+    border: 1px solid rgba(var(--gray-dark), 0.2);
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.9);
+    box-shadow: 0 2px 8px rgba(var(--black), 0.2);
+    color: rgb(var(--gray-dark));
+    cursor: pointer;
+    font: inherit;
+    font-size: 1.25rem;
+    z-index: 1;
+  }
+
+  .image-gallery__previous {
+    left: 0.75rem;
+  }
+
+  .image-gallery__next {
+    right: 0.75rem;
+  }
+
+  button:hover:not(:disabled) {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  button:focus-visible {
+    outline: 3px solid var(--accent);
+    outline-offset: 2px;
+  }
+
+  button:disabled {
+    visibility: hidden;
+  }
+
+  .image-gallery__status {
+    display: none;
+    margin-top: 0.5rem;
+    color: rgb(var(--gray));
+    font-size: 0.9rem;
+    text-align: center;
+  }
+
+  .image-gallery[data-enhanced="true"] .image-gallery__status {
+    display: block;
+  }
+
+  figcaption {
+    margin-top: 0.5rem;
+    color: rgb(var(--gray));
+    font-size: 0.95rem;
+    text-align: center;
+  }
+</style>
