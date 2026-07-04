@@ -4,6 +4,7 @@ import WorkExperience from '../components/portfolio/WorkExperience.astro';
 import TechnicalExtracurriculars from '../components/portfolio/TechnicalExtracurriculars.astro';
 import Projects from '../components/portfolio/Projects.astro';
 import Competitions from '../components/portfolio/Competitions.astro';
+import RecentPosts from '../components/portfolio/RecentPosts.astro';
 import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 import SiteLayout from '../layouts/SiteLayout.astro';
 ---
@@ -12,6 +13,7 @@ import SiteLayout from '../layouts/SiteLayout.astro';
   <main class="w-full max-w-none p-0">
     <div class="mx-auto w-full max-w-6xl">
       <Hero />
+      <RecentPosts />
       <div id="work-experience" class="scroll-mt-16">
         <WorkExperience />
       </div>
