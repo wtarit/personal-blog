@@ -6,7 +6,7 @@ heroImage: "../../assets/networkingblog/GuestNetworkDiagram.png"
 draft: false
 ---
 
-# Goal
+## Goal
 
 These two networks should be separated, and they shouldn't be able to route to each other. I'll assign a different interface to each network, and each interface will be connected to an access point.
 
@@ -19,7 +19,7 @@ OPNSense-->|192.168.3.1/24|GuestWifi
 
 By default, OPNsense routes all networks together (as it is a router!). To stop traffic from crossing between networks, we need to set up firewall rules to prevent that.
 
-# Existing Guide
+## Existing Guide
 
 [Setup a Guest Network - OPNsense docs](https://docs.opnsense.org/manual/how-tos/guestnet.html)  
 [Isolating our Guest Wireless Network in OPNSense](https://www.bentasker.co.uk/posts/blog/house-stuff/creating-isolated-ipv4-and-ipv6-networks-with-vlans-and-opnsense.html)
@@ -35,6 +35,6 @@ From the existing guides, it seems the approach is to create a block rule to pre
 
 There's a Destination called **This Firewall** which make the OPNsense web GUI not accessible, make sure to include that as well.
 
-# Reference
+## Reference
 
 [Firewall Rules - OPNsense docs](https://docs.opnsense.org/manual/firewall.html)

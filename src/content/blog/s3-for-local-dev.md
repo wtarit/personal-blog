@@ -22,7 +22,7 @@ This issue has been mentioned [since 2022](https://git.deuxfleurs.fr/Deuxfleurs/
 
 One I stumbled upon is SeaweedFS. The project has been around since the early 2010s and is actively maintained (from looking at its GitHub). It has an enterprise offering, which might mean they could pull the same move MinIO did, that's a potential con. On the other hand, it probably means the project will get frequent bug fixes (I hope).
 
-# Ease of Setup
+## Ease of Setup
 
 **Goal:** Be able to git clone and just run the code. I want access keys predefined so I don't have to change my .env file every time I delete the Docker Compose stack.
 
@@ -38,16 +38,16 @@ It still doesn't have an option to auto-create buckets from an environment varia
 
 For connecting to it, refer to this [documentation](https://github.com/seaweedfs/seaweedfs/wiki/AWS-CLI-with-SeaweedFS).
 
-# Resource Consumption
+## Resource Consumption
 
-## Image Size
+### Image Size
 
 As shown on Docker Desktop:
 
 dxflrs/garage v2.2.0 - 64.41 MB  
 chrislusf/seaweedfs latest (v4.17) - 312.08 MB
 
-## Memory Usage
+### Memory Usage
 
 Not a scientific measurement — I just launched each container with 2 buckets and a few files, then ran `docker stats`.
 
