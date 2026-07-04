@@ -21,7 +21,12 @@ export default defineConfig({
     }),
     mdx(),
     sitemap(),
-    icon(),
+    icon({
+      include: {
+        lucide: ["mail"],
+        "simple-icons": ["devpost", "github", "linkedin"],
+      },
+    }),
   ],
 
   adapter: cloudflare(),
