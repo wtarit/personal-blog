@@ -1,0 +1,62 @@
+---
+import { Image } from "astro:assets";
+import type { CollectionEntry } from "astro:content";
+import FormattedDate from "./FormattedDate.astro";
+
+type Post = CollectionEntry<"blog"> | CollectionEntry<"thBlog">;
+
+interface Props {
+  posts: Post[];
+  basePath: "/blog" | "/th/blog";
+  heading: string;
+}
+
+const { posts, basePath, heading } = Astro.props;
+---
+
+<main class="w-full max-w-240">
+  <section aria-label="Blog posts">
+    <h1 class="sr-only">{heading}</h1>
+    <ul
+      class="m-0 grid list-none grid-cols-1 gap-2 p-0 min-[45rem]:grid-cols-2 min-[45rem]:gap-8"
+    >
+      {
+        posts.map((post, index) => (
+          <li
+            class:list={[
+              "group text-center",
+              index === 0
+                ? "min-[45rem]:col-span-2 min-[45rem]:mb-4"
+                : "min-[45rem]:text-left",
+            ]}
+          >
+            <a class="block no-underline" href={`${basePath}/${post.id}/`}>
+              {post.data.heroImage && (
+                <Image
+                  class="mb-2 aspect-video w-full rounded-xl object-cover transition-shadow duration-200 ease-in-out group-hover:shadow-(--box-shadow)"
+                  width={720}
+                  height={405}
+                  src={post.data.heroImage}
+                  alt=""
+                />
+              )}
+              <h2
+                class:list={[
+                  "m-0 text-[1.563rem] leading-none text-[rgb(var(--black))] transition-colors duration-200 ease-in-out group-hover:text-(--accent)",
+                  {
+                    "min-[45rem]:text-[2.369rem]": index === 0,
+                  },
+                ]}
+              >
+                {post.data.title}
+              </h2>
+              <p class="m-0 text-[rgb(var(--gray))] transition-colors duration-200 ease-in-out group-hover:text-(--accent)">
+                <FormattedDate date={post.data.pubDate} />
+              </p>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+</main>
