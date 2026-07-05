@@ -16,6 +16,7 @@ const {
   award,
   github,
   devpost,
+  youtube,
   demo,
   hasWriteup,
 } = project.data;
@@ -73,6 +74,15 @@ const {
         <Icon name="simple-icons:devpost" class="h-5 w-5 text-black" />
       </a>
     )}
-    {demo && <a class="text-sm font-medium" href={demo} target="_blank" rel="noreferrer">Demo</a>}
+    {youtube && (
+      <a href={youtube} target="_blank" rel="noreferrer" aria-label={`${title} on YouTube`}>
+        <Icon name="simple-icons:youtube" class="h-5 w-5 text-black" />
+      </a>
+    )}
+    {demo && (
+      <a href={demo} target="_blank" rel="noreferrer" aria-label={`${title} demo`}>
+        <Icon name="lucide:external-link" class="h-5 w-5 text-black" />
+      </a>
+    )}
   </div>
 </article>
