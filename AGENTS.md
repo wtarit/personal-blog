@@ -17,7 +17,7 @@ Personal blog and portfolio site built with Astro 5, deployed to Cloudflare Page
 - **Framework:** Astro 5 with MDX support, Tailwind CSS v4 (via Vite plugin), and TypeScript (strict mode)
 - **Deployment:** Cloudflare Pages (`wrangler.jsonc` config, `@astrojs/cloudflare` adapter)
 - **Content:** Blog posts live in `src/content/blog/` as `.md` or `.mdx` files. The collection schema is defined in `src/content.config.ts`
-- **Homepage (`src/pages/index.astro`):** Portfolio page composed of section components in `src/components/portfolio/`
+- **Homepage (`src/pages/index.astro`):** Portfolio page composed of section components in `src/components/portfolio/`. Its primary audiences are technical recruiters and engineers; homepage content and design decisions should prioritize their needs.
 - **Blog listing (`src/pages/blog/index.astro`):** Filters out `draft: true` posts and sorts by `pubDate` descending
 - **Blog post pages (`src/pages/blog/[...slug].astro`):** Dynamic routes using Astro content collections
 - **Site constants** (title, description) are in `src/consts.ts`

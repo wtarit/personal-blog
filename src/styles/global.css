@@ -147,6 +147,30 @@
 }
 
 @layer components {
+  .content-grid {
+    @apply grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3;
+  }
+
+  .content-card {
+    @apply flex h-full w-full flex-col overflow-hidden rounded-lg border bg-white text-inherit no-underline shadow-sm transition-shadow hover:shadow-md;
+  }
+
+  .content-card-image {
+    @apply aspect-video w-full rounded-none object-cover;
+  }
+
+  .content-card-body {
+    @apply flex grow flex-col p-5;
+  }
+
+  .content-card-title {
+    @apply text-xl font-semibold leading-tight tracking-tight;
+  }
+
+  .content-card-description {
+    @apply m-0 text-sm leading-relaxed text-gray-700;
+  }
+
   .prose h2 {
     @apply text-4xl font-bold tracking-tight;
   }

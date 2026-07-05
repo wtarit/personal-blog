@@ -1,0 +1,41 @@
+---
+import { Image } from "astro:assets";
+import { type CollectionEntry, getCollection, render } from "astro:content";
+import SiteLayout from "../../layouts/SiteLayout.astro";
+
+export async function getStaticPaths() {
+  const projects = await getCollection(
+    "projects",
+    ({ data }) => !data.draft && data.hasWriteup,
+  );
+  return projects.map((project) => ({
+    params: { slug: project.id },
+    props: project,
+  }));
+}
+
+type Props = CollectionEntry<"projects">;
+const project = Astro.props;
+const { Content } = await render(project);
+const { title, description, image, award, github, devpost, demo } = project.data;
+---
+
+<SiteLayout title={title} description={description} image={image}>
+  <main>
+    <article>
+      <a href="/projects">← All projects</a>
+      <h1 class="mt-6 text-4xl font-bold tracking-tight md:text-5xl">{title}</h1>
+      <p class="text-xl text-gray-700">{description}</p>
+      {award && <p><strong>Award:</strong> {award}</p>}
+      <div class="mb-6 flex gap-4">
+        {github && <a href={github} target="_blank" rel="noreferrer">GitHub</a>}
+        {devpost && <a href={devpost} target="_blank" rel="noreferrer">Devpost</a>}
+        {demo && <a href={demo} target="_blank" rel="noreferrer">Live demo</a>}
+      </div>
+      <Image src={image} alt="" class="mb-10 aspect-video w-full object-cover" />
+      <div class="prose">
+        <Content />
+      </div>
+    </article>
+  </main>
+</SiteLayout>

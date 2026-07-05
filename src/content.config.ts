@@ -21,4 +21,24 @@ const thBlog = defineCollection({
   schema: blogSchema,
 });
 
-export const collections = { blog, thBlog };
+const projects = defineCollection({
+  loader: glob({ base: "./src/content/projects", pattern: "**/*.{md,mdx}" }),
+  schema: ({ image }) =>
+    z.object({
+      title: z.string(),
+      description: z.string(),
+      image: image(),
+      date: z.coerce.date(),
+      featured: z.boolean().default(false),
+      featuredOrder: z.number().int().positive().optional(),
+      hasWriteup: z.boolean().default(false),
+      type: z.enum(["project", "hackathon", "competition"]).default("project"),
+      award: z.string().optional(),
+      github: z.string().url().optional(),
+      devpost: z.string().url().optional(),
+      demo: z.string().url().optional(),
+      draft: z.boolean().default(false),
+    }),
+});
+
+export const collections = { blog, thBlog, projects };

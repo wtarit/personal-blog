@@ -1,0 +1,78 @@
+---
+import { Image } from "astro:assets";
+import { Icon } from "astro-icon/components";
+import type { CollectionEntry } from "astro:content";
+
+interface Props {
+  project: CollectionEntry<"projects">;
+}
+
+const { project } = Astro.props;
+const {
+  title,
+  description,
+  image,
+  type,
+  award,
+  github,
+  devpost,
+  demo,
+  hasWriteup,
+} = project.data;
+---
+
+<article class="content-card">
+  {hasWriteup ? (
+    <a href={`/projects/${project.id}`} aria-label={`Read about ${title}`}>
+      <Image
+        src={image}
+        alt=""
+        class="content-card-image"
+      />
+    </a>
+  ) : (
+    <Image
+      src={image}
+      alt=""
+      class="content-card-image"
+    />
+  )}
+  <div class="p-5 pb-3">
+    <div class="mb-2 flex flex-wrap gap-2">
+      <span class="rounded-full bg-gray-100 px-2 py-1 text-xs capitalize text-gray-700">
+        {type}
+      </span>
+      {award && (
+        <span class="rounded-full bg-amber-100 px-2 py-1 text-xs text-amber-900">
+          {award}
+        </span>
+      )}
+    </div>
+    <h3 class="content-card-title">
+      {hasWriteup ? (
+        <a class="text-inherit no-underline hover:text-blue-700" href={`/projects/${project.id}`}>
+          {title}
+        </a>
+      ) : title}
+    </h3>
+  </div>
+  <div class="grow px-5 pb-5">
+    <p class="content-card-description">{description}</p>
+  </div>
+  <div class="flex items-center gap-3 px-5 pb-5">
+    {hasWriteup && (
+      <a class="text-sm font-medium" href={`/projects/${project.id}`}>Read more</a>
+    )}
+    {github && (
+      <a href={github} target="_blank" rel="noreferrer" aria-label={`${title} on GitHub`}>
+        <Icon name="simple-icons:github" class="h-5 w-5 text-black" />
+      </a>
+    )}
+    {devpost && (
+      <a href={devpost} target="_blank" rel="noreferrer" aria-label={`${title} on Devpost`}>
+        <Icon name="simple-icons:devpost" class="h-5 w-5 text-black" />
+      </a>
+    )}
+    {demo && <a class="text-sm font-medium" href={demo} target="_blank" rel="noreferrer">Demo</a>}
+  </div>
+</article>
