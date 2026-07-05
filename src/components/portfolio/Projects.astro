@@ -2,13 +2,28 @@
 import { getCollection } from "astro:content";
 import ProjectCard from "../ProjectCard.astro";
 
-const projects = (await getCollection("projects"))
-  .filter((project) => project.data.featured && !project.data.draft)
-  .sort(
-    (a, b) =>
-      (a.data.featuredOrder ?? Number.MAX_SAFE_INTEGER) -
-      (b.data.featuredOrder ?? Number.MAX_SAFE_INTEGER),
-  );
+const selectedProjectIds = [
+  "ubc-discovery",
+  "ubc-newcomers-ubc-cic-2026",
+  "pipelie-mlh-production-hack-2026",
+  "bitrelay-edc-2026",
+  "wastewizard",
+  "kibo-robot-programming-challenge",
+];
+
+const allProjects = await getCollection("projects");
+const projectsById = new Map(allProjects.map((project) => [project.id, project]));
+const projects = selectedProjectIds
+  .map((id) => {
+    const project = projectsById.get(id);
+
+    if (!project) {
+      throw new Error(`Selected project "${id}" does not exist`);
+    }
+
+    return project;
+  })
+  .filter((project) => !project.data.draft);
 ---
 
 <section class="p-6" aria-labelledby="selected-projects-heading">

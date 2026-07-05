@@ -29,8 +29,6 @@ const projects = defineCollection({
       description: z.string(),
       image: image(),
       date: z.coerce.date(),
-      featured: z.boolean().default(false),
-      featuredOrder: z.number().int().positive().optional(),
       hasWriteup: z.boolean().default(false),
       type: z.enum(["project", "hackathon", "competition"]).default("project"),
       award: z.string().optional(),

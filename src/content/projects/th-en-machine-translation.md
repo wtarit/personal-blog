@@ -3,8 +3,6 @@ title: TH–EN Machine Translation
 description: Fine-tuning No Language Left Behind for Thai-to-English translation using SCB-1M and OPUS.
 image: ../../assets/images/TH-EN-MT_Cover.png
 date: 2026-07-04
-featured: true
-featuredOrder: 4
 github: https://github.com/wtarit/th-en-machine-translation
 ---
 
