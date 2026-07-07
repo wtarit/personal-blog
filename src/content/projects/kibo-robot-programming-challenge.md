@@ -1,9 +1,10 @@
 ---
 title: Kibo Robot Programming Challenge
-description: An Android application for controlling NASA's Astrobee robot aboard the International Space Station.
-image: ../../assets/images/2ndkibo.webp
-date: 2026-07-04
 type: competition
+award: 🏆 Global 1st Place Winner
+description: An Android application for controlling NASA's Astrobee robot on the International Space Station.
+image: ../../assets/images/2ndkibo.webp
+date: 2021-11-17
 github: https://github.com/wtarit/2nd-Kibo-RPC_Indentation-Error
 ---
 
