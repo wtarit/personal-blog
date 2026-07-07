@@ -1,6 +1,6 @@
 ---
 title: RoboInnovator Challenge 2020
-award: Best Performance Award
+award: 🏆 Best Performance Award
 description: A logistics robot that follows road lanes and routes objects by reading QR codes.
 image: ../../assets/images/Roboinnovator_Cover.webp
 date: 2020-09-06
