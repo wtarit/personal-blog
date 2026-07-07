@@ -1,5 +1,5 @@
 ---
-title: Kibo Robot Programming Challenge
+title: 2nd Kibo Robot Programming Challenge
 type: competition
 award: 🏆 Global 1st Place Winner
 description: An Android application for controlling NASA's Astrobee robot on the International Space Station.
