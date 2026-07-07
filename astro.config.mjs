@@ -23,8 +23,8 @@ export default defineConfig({
     sitemap(),
     icon({
       include: {
-        lucide: ["mail"],
-        "simple-icons": ["devpost", "github", "linkedin"],
+        lucide: ["external-link", "mail"],
+        "simple-icons": ["devpost", "github", "linkedin", "youtube"],
       },
     }),
   ],

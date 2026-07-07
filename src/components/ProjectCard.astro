@@ -16,63 +16,112 @@ const {
   award,
   github,
   devpost,
+  youtube,
   demo,
   hasWriteup,
 } = project.data;
 ---
 
 <article class="content-card">
-  {hasWriteup ? (
-    <a href={`/projects/${project.id}`} aria-label={`Read about ${title}`}>
-      <Image
-        src={image}
-        alt=""
-        class="content-card-image"
-      />
-    </a>
-  ) : (
-    <Image
-      src={image}
-      alt=""
-      class="content-card-image"
-    />
-  )}
-  <div class="p-5 pb-3">
+  {
+    hasWriteup ? (
+      <a href={`/projects/${project.id}`} aria-label={`Read about ${title}`}>
+        <Image src={image} alt="" class="content-card-image" />
+      </a>
+    ) : (
+      <Image src={image} alt="" class="content-card-image" />
+    )
+  }
+  <div class="p-5 pb-0">
     <div class="mb-2 flex flex-wrap gap-2">
-      <span class="rounded-full bg-gray-100 px-2 py-1 text-xs capitalize text-gray-700">
+      <span
+        class="rounded-full bg-gray-100 px-2 py-1 text-xs capitalize text-gray-700"
+      >
         {type}
       </span>
-      {award && (
-        <span class="rounded-full bg-amber-100 px-2 py-1 text-xs text-amber-900">
-          {award}
-        </span>
-      )}
     </div>
     <h3 class="content-card-title">
-      {hasWriteup ? (
-        <a class="text-inherit no-underline hover:text-blue-700" href={`/projects/${project.id}`}>
-          {title}
-        </a>
-      ) : title}
+      {
+        hasWriteup ? (
+          <a
+            class="text-inherit no-underline hover:text-blue-700"
+            href={`/projects/${project.id}`}
+          >
+            {title}
+          </a>
+        ) : (
+          title
+        )
+      }
     </h3>
+    <div class="mb-2 flex flex-wrap gap-2">
+      {
+        award && (
+          <span class="rounded-full bg-amber-100 px-2 py-1 text-xs text-amber-900">
+            {award}
+          </span>
+        )
+      }
+    </div>
   </div>
-  <div class="grow px-5 pb-5">
+  <div class="grow px-5 pb-3">
     <p class="content-card-description">{description}</p>
   </div>
   <div class="flex items-center gap-3 px-5 pb-5">
-    {hasWriteup && (
-      <a class="text-sm font-medium" href={`/projects/${project.id}`}>Read more</a>
-    )}
-    {github && (
-      <a href={github} target="_blank" rel="noreferrer" aria-label={`${title} on GitHub`}>
-        <Icon name="simple-icons:github" class="h-5 w-5 text-black" />
-      </a>
-    )}
-    {devpost && (
-      <a href={devpost} target="_blank" rel="noreferrer" aria-label={`${title} on Devpost`}>
-        <Icon name="simple-icons:devpost" class="h-5 w-5 text-black" />
-      </a>
-    )}
-    {demo && <a class="text-sm font-medium" href={demo} target="_blank" rel="noreferrer">Demo</a>}
+    {
+      hasWriteup && (
+        <a class="text-sm font-medium" href={`/projects/${project.id}`}>
+          Read more
+        </a>
+      )
+    }
+    {
+      github && (
+        <a
+          href={github}
+          target="_blank"
+          rel="noreferrer"
+          aria-label={`${title} on GitHub`}
+        >
+          <Icon name="simple-icons:github" class="h-5 w-5 text-black" />
+        </a>
+      )
+    }
+    {
+      devpost && (
+        <a
+          href={devpost}
+          target="_blank"
+          rel="noreferrer"
+          aria-label={`${title} on Devpost`}
+        >
+          <Icon name="simple-icons:devpost" class="h-5 w-5 text-black" />
+        </a>
+      )
+    }
+    {
+      youtube && (
+        <a
+          href={youtube}
+          target="_blank"
+          rel="noreferrer"
+          aria-label={`${title} on YouTube`}
+        >
+          <Icon name="simple-icons:youtube" class="h-5 w-5 text-black" />
+        </a>
+      )
+    }
+    {
+      demo && (
+        <a
+          href={demo}
+          target="_blank"
+          rel="noreferrer"
+          aria-label={`${title} demo`}
+        >
+          <Icon name="lucide:external-link" class="h-5 w-5 text-black" />
+        </a>
+      )
+    }
   </div>
 </article>

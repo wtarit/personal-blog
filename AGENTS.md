@@ -37,6 +37,6 @@ draft: boolean       # optional, hides post from blog listing
 
 - `astro-embed` — Used for embedding YouTube videos in MDX posts
 - `astro-mermaid` — Mermaid diagram support with auto dark/light theme
-- `astro-icon` with `@iconify-json/simple-icons` — Icon support
+- `astro-icon` with `@iconify-json/simple-icons` — Icon support. Every icon used in a component must also be added to the appropriate `integrations.icon.include` allowlist in `astro.config.mjs`.
 - `@astrojs/rss` — RSS feed at `src/pages/rss.xml.js`
 - `@astrojs/sitemap` — Auto-generated sitemap

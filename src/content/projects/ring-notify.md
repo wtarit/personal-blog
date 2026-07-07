@@ -2,9 +2,7 @@
 title: Ring Notify
 description: A mobile application that presents urgent events through the incoming-call screen.
 image: ../../assets/images/RingNotify_Cover.png
-date: 2026-07-04
-featured: true
-featuredOrder: 3
+date: 2026-02-01
 github: https://github.com/wtarit/ring-notify
 ---
 
