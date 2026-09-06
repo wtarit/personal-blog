@@ -1,0 +1,22 @@
+---
+title: "Setting up Canvas for personal use"
+description: "Setting up Canvas on your own server for testing"
+pubDate: "Sep 09 2026"
+heroImage: "../../assets/blog/Garage-VS-Seaweed-cover.png"
+draft: true
+---
+
+I'm developing an app that I want to integrate with Canvas, so I need a Canvas instance that I can create course and I have admin access so I can test my integration. So Canvas is open source which is cool. The issue is to get a Canvas instance for evaluation, I need to contact sale which I haven't tried but they probably not gonna response. So I need to take matter in my own hand.
+
+Canvas does have production guide https://github.com/instructure/canvas-lms/wiki/Production-Start but well it ask you to install everything on a bare metal linux server. I'm not ready to cosplay as a sysadmin for a Canvas instance with 5 users.
+
+There gotta be a better way right? There's a bunch of docker compose file in https://github.com/instructure/canvas-lms can I just docker compose up -d point some reverse proxy at whatever port it expose and have my own Canvas? No, Instructure didn't publish a docker image for the Canvas app itself, they do provide a script for starting a dev server but I tried run it on my machine and the build failed and I'm too lazy to debug. Next I look at `Dockerfile.production` that name is interesting, I can just build it and run?
+
+```
+docker buildx build \
+    --platform linux/arm64 \
+    --build-arg POSTGRES_CLIENT=18 \
+    -f Dockerfile.production \
+    -t ghcr.io/b2ta/canvas:latest \
+    --push .
+```
